@@ -31,14 +31,16 @@ public abstract class ThreadTeleLib extends OpMode
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
 
         leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
-        leftBack.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
 
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        th_Claw = new ThreadHandler();
     }
     Thread clawOpen = new Thread(new Runnable()
     {
@@ -74,7 +76,7 @@ public abstract class ThreadTeleLib extends OpMode
     {
         double right_stick_x = gamepad1.right_stick_x;
         double left_stick_x = gamepad1.left_stick_x;
-        double left_stick_y = gamepad1.left_stick_x;
+        double left_stick_y = gamepad1.left_stick_y;
 
         if (Math.abs(left_stick_x) > 0.1 || Math.abs(right_stick_x) > 0.1 || Math.abs(left_stick_y) > 0.1) {
             leftFront.setPower((left_stick_y - left_stick_x) - right_stick_x);
@@ -103,7 +105,7 @@ public abstract class ThreadTeleLib extends OpMode
             th_Claw.queue(clawOpen);
         }
 
-        if (gamepad1.aWasPressed())
+        if (gamepad1.bWasPressed())
         {
             th_Claw.queue(clawClose);
         }

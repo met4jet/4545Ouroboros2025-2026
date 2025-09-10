@@ -2,6 +2,7 @@ package ThreadTeleOp;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp
 public class ThreadTeleOp extends ThreadTeleLib
 {
     private ElapsedTime loopTimer;
